@@ -14,10 +14,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+public class CommonMethods extends Base {
 
-
-public class CommonMethods  extends Base{
-	
 	Select s;
 	static String actVal;
 
@@ -96,8 +94,8 @@ public class CommonMethods  extends Base{
 	 */
 	public static void selectByValueDD(By locator, String value) {
 		try {
-		Select s = new Select(driver.findElement(locator));
-		s.selectByVisibleText(value);
+			Select s = new Select(driver.findElement(locator));
+			s.selectByVisibleText(value);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -145,8 +143,6 @@ public class CommonMethods  extends Base{
 
 	}
 
-	
-
 	/**
 	 * Waits for the element to be located works as fluent wait.
 	 * 
@@ -180,8 +176,8 @@ public class CommonMethods  extends Base{
 	 */
 	public static boolean waitForElement(By object) {
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(60));
-			wait.pollingEvery(Duration.ofSeconds(2));
+			Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(60))
+					.pollingEvery(Duration.ofSeconds(2)).ignoring(NoSuchElementException.class);
 			wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(object));
 			return true;
 		} catch (Exception e) {
@@ -208,7 +204,6 @@ public class CommonMethods  extends Base{
 		}
 	}
 
-	//WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
-
+	// WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
 
 }
